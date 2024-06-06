@@ -1,0 +1,21 @@
+[package]
+name = "rust-direct-query-with-param-types"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+worker = { version = "0.3.0", features = ["tokio-postgres"] }
+tokio-postgres = { version = "0.7.10", features = [
+  'js',
+], default-features = false }
+
+[patch.crates-io]
+tokio-postgres = { git = "https://github.com/exograph/rust-postgres", branch = "exograph" }
+
+[profile.release]
+opt-level = "s"   # optimize for size in release builds
+strip = true
+codegen-units = 1
